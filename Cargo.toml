@@ -13,4 +13,4 @@ wasmuri-core = { git = "https://github.com/knokko/wasmuri-core" }
 
 [dependencies.web-sys]
 version = "0.3"
-features = [ "Event", "EventTarget", "HtmlElement", "KeyboardEvent", "Window" ]
+features = [ "Event", "EventTarget", "HtmlElement", "KeyboardEvent", "MouseEvent", "Window" ]
