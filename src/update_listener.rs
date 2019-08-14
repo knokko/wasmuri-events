@@ -5,8 +5,15 @@ use wasm_bindgen::prelude::*;
 
 use web_sys::window;
 
+/// The UpdateEvent is the event for the UPDATE_HANDLER. It doesn't have any fields, it's only purpose is to indicate
+/// that 10 milliseconds have passed since the previous update.
 pub struct UpdateEvent {}
 
+/// The event Handler for the update event (the JavaScript function that was passed to window.setInterval was called).
+/// The browser will be asked to call that function every 10 milliseconds, so let's hope it will actually do it.
+/// 
+/// The set_event_source method of this crate will need to be called before this Handler will start firing events, 
+/// but you can always add listeners to this Handler.
 pub static UPDATE_HANDLER: Handler<UpdateEvent> = Handler::new();
 
 pub(super) fn start_update_listener(){

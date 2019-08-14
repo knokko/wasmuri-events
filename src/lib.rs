@@ -16,6 +16,13 @@ pub use update_listener::*;
 pub use handler::*;
 pub use source::*;
 
+/// This function will start all event Handler's of this crate, so the handlers of this crate won't fire any events until
+/// this function is called. The source can be the Window object or any HtmlElement (use the dyn_into method if you have
+/// an instance of a struct that 'extends' HtmlEvent in JavaScript).
+/// 
+/// As the method suggests, there can only be a single event source. This function must not be called again (weird things
+/// will happen if you do it anyway). This crate was simply not designed to handle events from multiple event sources
+/// because the wasmuri project will operate on a single canvas anyway.
 pub fn set_event_source(source: &dyn WasmuriEventSource){
     key_listener::set_event_source(source);
     mouse_listener::set_event_source(source);
