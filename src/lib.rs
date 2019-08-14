@@ -5,6 +5,8 @@ mod source;
 
 pub mod key_listener;
 pub mod mouse_listener;
+pub mod render_listener;
+pub mod update_listener;
 
 pub use handler::Listener;
 pub use source::*;
@@ -12,4 +14,6 @@ pub use source::*;
 pub fn add_event_source(source: &dyn WasmuriEventSource){
     key_listener::add_event_source(source);
     mouse_listener::add_event_source(source);
+    render_listener::start_render_listener();
+    update_listener::start_update_listener();
 }
