@@ -9,7 +9,7 @@ pub struct UpdateEvent {}
 
 pub static UPDATE_HANDLER: Handler<UpdateEvent> = Handler::new();
 
-pub fn start_update_listener(){
+pub(super) fn start_update_listener(){
     let update_closure = Closure::wrap(Box::new(|| {
         UPDATE_HANDLER.fire_event(UpdateEvent {});
     }) as Box<dyn FnMut()>);

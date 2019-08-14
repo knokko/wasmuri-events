@@ -9,7 +9,7 @@ pub struct RenderEvent {}
 
 pub static RENDER_HANDLER: Handler<RenderEvent> = Handler::new();
 
-pub fn start_render_listener(){
+pub(super) fn start_render_listener(){
     request_next_frame();
 }
 

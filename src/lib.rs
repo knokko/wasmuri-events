@@ -12,8 +12,8 @@ pub use handler::Listener;
 pub use source::*;
 
 pub fn set_event_source(source: &dyn WasmuriEventSource){
-    key_listener::add_event_source(source);
-    mouse_listener::add_event_source(source);
+    key_listener::set_event_source(source);
+    mouse_listener::set_event_source(source);
     render_listener::start_render_listener();
     update_listener::start_update_listener();
 }

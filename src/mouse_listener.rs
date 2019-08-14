@@ -24,7 +24,7 @@ pub static MOUSE_MOVE_HANDLER: Handler<MouseMoveEvent> = Handler::new();
 
 pub static MOUSE_SCROLL_HANDLER: Handler<MouseScrollEvent> = Handler::new();
 
-pub fn add_event_source(element: &dyn WasmuriEventSource){
+pub(super) fn set_event_source(element: &dyn WasmuriEventSource){
     let mouse_click_handler = Closure::wrap(Box::new(|event: MouseEvent| {
         MOUSE_CLICK_HANDLER.fire_event(MouseClickEvent {
             mouse_event: event

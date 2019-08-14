@@ -20,7 +20,7 @@ pub struct KeyUpEvent {
     pub key_event: KeyboardEvent
 }
 
-pub fn add_event_source(element: &dyn WasmuriEventSource){
+pub(super) fn set_event_source(element: &dyn WasmuriEventSource){
     let key_down_handler = Closure::wrap(Box::new(|event: KeyboardEvent| {
         KEY_DOWN_HANDLER.fire_event(KeyDownEvent {
             key_event: event
