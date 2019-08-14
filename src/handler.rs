@@ -1,7 +1,7 @@
 use std::cell::RefCell;
 use std::rc::Weak;
 
-pub(super) struct Handler<E> {
+pub struct Handler<E> {
 
     listeners: RefCell<Vec<Weak<RefCell<dyn Listener<E>>>>>,
     listeners_to_add: RefCell<Vec<Weak<RefCell<dyn Listener<E>>>>>

@@ -1,8 +1,4 @@
-use std::cell::RefCell;
-use std::rc::Weak;
-
 use super::handler::Handler;
-use super::handler::Listener;
 
 use wasm_bindgen::JsCast;
 use wasm_bindgen::prelude::*;
@@ -11,11 +7,7 @@ use web_sys::window;
 
 pub struct UpdateEvent {}
 
-static UPDATE_HANDLER: Handler<UpdateEvent> = Handler::new();
-
-pub fn add_update_listener(listener: Weak<RefCell<dyn Listener<UpdateEvent>>>){
-    UPDATE_HANDLER.add_listener(listener);
-}
+pub static UPDATE_HANDLER: Handler<UpdateEvent> = Handler::new();
 
 pub fn start_update_listener(){
     let update_closure = Closure::wrap(Box::new(|| {
