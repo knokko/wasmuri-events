@@ -22,6 +22,13 @@ pub struct MouseMoveEvent {
     pub mouse_event: MouseEvent
 }
 
+impl MouseMoveEvent {
+
+    pub fn get_new_position(&self) -> (i32, i32) {
+        (self.mouse_event.offset_x(), self.mouse_event.offset_y())
+    }
+}
+
 /// The MouseScrollEvent is the event for the MOUSE_SCROLL_HANDLER of this crate. This struct contains a single field mouse_event
 /// of type web_sys::MouseEvent to make every field of the JavaScript MouseEvent available in the event. I can't simply use
 /// MouseEvent as the event for the MOUSE_SCROLL_HANDLER because that would make it hard to let a single listener struct listen
