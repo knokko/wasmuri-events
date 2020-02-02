@@ -13,4 +13,4 @@ wasmuri-core = { path = "../core" }
 
 [dependencies.web-sys]
 version = "0.3"
-features = [ "Event", "EventTarget", "HtmlElement", "KeyboardEvent", "MouseEvent", "WheelEvent", "Window" ]
+features = [ "Event", "EventTarget", "HtmlElement", "KeyboardEvent", "MouseEvent", "WheelEvent", "ClipboardEvent", "Window" ]
