@@ -1,8 +1,8 @@
-use super::handler::Handler;
+use super::*;
 
-use wasm_bindgen::JsCast;
-use wasm_bindgen::prelude::*;
+use wasm_bindgen::JsValue;
 
+use web_sys::Event;
 use web_sys::window;
 
 /// The ResizeEvent is the event of the RESIZE_HANDLER and will be fired whenever the WINDOW resizes. The struct contains
@@ -31,16 +31,14 @@ impl ResizeEvent {
 pub static RESIZE_HANDLER: Handler<ResizeEvent> = Handler::new();
 
 pub(super) fn start_resize_listener(){
-    let update_closure = Closure::wrap(Box::new(|| {
-        let window = window().expect("Should have window");
-        RESIZE_HANDLER.fire_event(ResizeEvent {
-            new_width: window.inner_width().expect("Should be able to get innerWidth of window").as_f64().expect("innerWidth of window should be an f64") as u32,
-            new_height: window.inner_height().expect("Should be able to get innerHeight of window").as_f64().expect("innerHeight of window should be an f64") as u32
-        });
-    }) as Box<dyn FnMut()>);
-
     let window = window().expect("There should be a window");
-    window.add_event_listener_with_callback("resize", update_closure.as_ref().unchecked_ref()).expect("Should be possible to add window resize event listener");
+    add_window_listener(&RESIZE_HANDLER, move |_event: Event| ResizeEvent {
+        new_width: convert(window.inner_width()),
+        new_height: convert(window.inner_height())
+    }, "resize");
+}
 
-    update_closure.forget();
+fn convert(value: Result<JsValue,JsValue>) -> u32 {
+    value.expect("window should have innerWidth and innerHeight").as_f64().expect(
+            "window.innerWidth and window.innerHeight should be floating point numbers") as u32
 }

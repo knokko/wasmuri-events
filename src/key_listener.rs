@@ -1,8 +1,5 @@
 use super::handler::Handler;
-use super::WasmuriEventSource;
-
-use wasm_bindgen::JsCast;
-use wasm_bindgen::prelude::*;
+use super::*;
 
 use web_sys::KeyboardEvent;
 
@@ -35,20 +32,6 @@ pub struct KeyUpEvent {
 }
 
 pub(super) fn set_event_source(element: &dyn WasmuriEventSource){
-    let key_down_handler = Closure::wrap(Box::new(|event: KeyboardEvent| {
-        KEY_DOWN_HANDLER.fire_event(KeyDownEvent {
-            key_event: event
-        });
-    }) as Box<dyn FnMut(KeyboardEvent)>);
-    let key_up_handler = Closure::wrap(Box::new(|event: KeyboardEvent| {
-        KEY_UP_HANDLER.fire_event(KeyUpEvent {
-            key_event: event
-        });
-    }) as Box<dyn FnMut(KeyboardEvent)>);
-
-    element.add_wasmuri_listener("keydown", key_down_handler.as_ref().unchecked_ref());
-    element.add_wasmuri_listener("keyup", key_up_handler.as_ref().unchecked_ref());
-
-    key_down_handler.forget();
-    key_up_handler.forget();
+    add_wasmuri_listener(element, &KEY_DOWN_HANDLER, |key_event| KeyDownEvent{key_event}, "keydown");
+    add_wasmuri_listener(element, &KEY_UP_HANDLER, |key_event| KeyUpEvent{key_event}, "keyup");
 }
